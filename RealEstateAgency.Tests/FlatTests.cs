@@ -7,7 +7,7 @@ namespace RealEstateAgency.Tests
     public class FlatTests
     {
         [Fact]
-        public void PricePerYear()
+        public void PricePerYear__PerMounth100Month12__Return1200()
         {
             //arrange
             int pricePerMonth = 100;
@@ -38,7 +38,7 @@ namespace RealEstateAgency.Tests
         }
 
         [Fact]
-        public void AverageRoomArea()
+        public void AverageRoomArea__Area100Rooms3__Return25()
         {
             //arrange
             double area = 100;
@@ -54,6 +54,44 @@ namespace RealEstateAgency.Tests
             Assert.Equal(expected, actual, 5);
 
         }
+
+        [Fact]
+        public void Deposit_ShouldBeInRangeOf10to15Percent()
+        {
+            //arrange
+            int deposit = 12;
+            int price = 100;
+            bool expected;
+
+            if (deposit >= price/10 && deposit <= price*0.15)
+            {
+                expected = true;
+            }
+            else
+            {
+                expected = false;
+            }
+
+            //act
+            Flat flat = new Flat() {Deposit = 12, Number = "Квартира №1", Region = "Вінницька", Address = new Address { Street = "Лесі Українки" }, Price = 100, Area = 100, CountOfRoom = 3 };
+            bool actual = flat.CheckDeposit();
+
+            //assert
+            Assert.Equal(expected, actual);
+
+        }
+
+        [Fact]
+        public void State_HaveFree()
+        {
+            //Arrange
+            var sut = new Flat();
+            string expected = "Free";
+
+            //Assert
+            Assert.Contains(expected, sut.State);
+        }
+
     }
 
 
