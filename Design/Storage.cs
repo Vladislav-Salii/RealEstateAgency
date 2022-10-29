@@ -22,8 +22,9 @@ namespace Design
         {
             return this.Price * 12;
         }
-        public double SummArea(int AmountRooms)
+        public double SummArea()
         {
+            int AmountRooms = 3;
             return this.Area * AmountRooms;
         }
         public bool FilterNumber()
@@ -42,6 +43,7 @@ namespace Design
         {
             return this.Region;
         }
+
         public bool Filter(object objFrom, object objTo)
         {
             Storage storageFrom = objFrom as Storage;
