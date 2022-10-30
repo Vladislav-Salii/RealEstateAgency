@@ -11,17 +11,87 @@ namespace RealEstateAgency.Tests
     public class HouseTests
     {
         [Fact]
-        public void FullName()
+        public void StartsWithHouseNum()
         {
             //Arrange
-
-
-            string expected = "Вінницька Соборна";
+            var house = new House() { Number = "Будинок №2", Region = "Київська ", Address = new Address { Street = "Бальзака" }, Price = 1000, Area = 30, NumberOfFloors = 1 };
             //Act
+            house.Print();
+            string actual = house.Region;
+            //Assert
+            Assert.StartsWith("Київська ", actual);
+        }
+
+        [Fact]
+        public void FullAddressName()
+        {
+            //Arrange
+            string expected = "Вінницька Соборна";
             var house = new House() { Number = "Будинок №1", Region = "Вінницька ", Address = new Address { Street = "Соборна" }, Price = 1000, Area = 100, NumberOfFloors = 1 };
-            string actual = house.ReturnAddress();
+            //Act
+            string actual = house.Return_Address();
             //Assert
             Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void TotalAreaPrice_3floors_40sqMeters()
+        {
+            //Arrange
+            decimal expected1 = 3694830;
+            decimal expected2 = 902723.1M;
+            var house1 = new House() { Number = "Будинок №2", Region = "Київська ", Address = new Address { Street = "Бальзака" }, Price = 1000, Area = 40, NumberOfFloors = 3 };
+            var house2 = new House() { Number = "Будинок №84A", Region = "Київська ", Address = new Address { Street = "Сержа Лифаря" }, Price = 1000, Area = 30, NumberOfFloors = 1 };
+            int precision = 2;
+            //Act
+            decimal actual1 = house1.Purchase_Price(house1.Area, house1.NumberOfFloors, 0);
+            decimal actual2 = house2.Purchase_Price(house2.Area, house2.NumberOfFloors, 30090.77M);
+            //Assert
+            Assert.Equal(expected1, actual1);
+            Assert.Equal(expected2, actual2, precision);
+        }
+
+        [Fact]
+        public void RieltorPart_Is_3to5_Percent()
+        {
+            //Arrange
+            var purchased_house = new House() { Number = "Будинок №2", Region = "Київська ", Address = new Address { Street = "Бальзака" }, Price = 1000, Area = 30, NumberOfFloors = 1 };
+            decimal price = purchased_house.Purchase_Price(purchased_house.Area, purchased_house.NumberOfFloors, 30090.77M);
+            //Act
+            decimal actual = purchased_house.RieltorPart(price, 0.05M);
+            //Assert
+            Assert.InRange<decimal>(actual, 18054.462M, 54163.386M);
+        }
+
+        [Fact]
+        public void RealPrice_WhenHave_PricePerMeter_AndRieltorPercent()
+        {
+            //Arrange
+            decimal RieltorPart = 0.05M;
+            decimal PricePerMeter = 30090.77M;
+            var purchased_house = new House() { Number = "Будинок №2", Region = "Київська ", Address = new Address { Street = "Бальзака" }, Price = 1000, Area = 30, NumberOfFloors = 1 };
+            decimal price = purchased_house.Purchase_Price(purchased_house.Area, purchased_house.NumberOfFloors, PricePerMeter);
+            decimal expected = 947859.255M;
+            //Act
+            decimal actual = purchased_house.RealPrice(price, RieltorPart);
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void Purchasing_Condition()
+        {
+            //Arrange
+            decimal RieltorPart = 0.05M;
+            var purchasing_house = new House() { Number = "Будинок №2", Region = "Київська ", Address = new Address { Street = "Бальзака" }, Price = 1000, Area = 30, NumberOfFloors = 1 };
+            decimal PricePerMeter = 30090.77M;
+            decimal price = purchasing_house.Purchase_Price(purchasing_house.Area, purchasing_house.NumberOfFloors, PricePerMeter);
+            purchasing_house.DocumentsAreVerified = true;
+            decimal RealPrice = purchasing_house.RealPrice(price, RieltorPart);
+            //Act
+            bool actual = purchasing_house.Purchasing(purchasing_house.DocumentsAreVerified, price, RealPrice);
+            //Assert
+            Assert.True(actual);
         }
     }
 }
