@@ -29,28 +29,30 @@ namespace Design
         }
         public double AverageRoomArea()
         {
-            return (double)((Area*0.75) / CountOfRoom);
+            return (double)((Area * 0.75) / CountOfRoom);
         }
-        public bool CheckDeposit()
+        public int CheckDeposit(int depos)
         {
-            if (this.Deposit >= this.Price/10 && this.Deposit <= this.Price*0.15)
+            if (depos >= Price / 10 && depos <= Price * 0.15)
             {
-                return true;
+                return depos;
             }
             else
             {
-                return false;
+                return -1;
             }
+
+
         }
         public string Print()
         {
-            return   $"Номер будинку : {Number} ," +
+            return $"Номер будинку : {Number} ," +
                      $" Область : {Region} ," +
                      $" Вулиця : {Address.Street} ," +
                      $" Ціна : {Price} ," +
                      $" Площа : {Area} ," +
                      $" Кількість поверхів : {CountOfRoom}";
-                
+
         }
         public bool Filter(object objFrom, object objTo)
         {
