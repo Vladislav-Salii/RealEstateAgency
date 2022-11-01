@@ -31,17 +31,21 @@ namespace Design
         {
             return (double)((Area*0.75) / CountOfRoom);
         }
-        public bool CheckDeposit()
+
+        public int CheckDeposit(int depos)
         {
-            if (this.Deposit >= this.Price/10 && this.Deposit <= this.Price*0.15)
+            if (depos >= Price / 10 && depos <= Price * 0.15)
             {
-                return true;
+                return depos;
             }
             else
             {
-                return false;
+                return -1;
             }
+
+
         }
+
         public string Print()
         {
             return   $"Номер будинку : {Number} ," +
