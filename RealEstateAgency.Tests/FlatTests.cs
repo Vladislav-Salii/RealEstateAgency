@@ -55,29 +55,19 @@ namespace RealEstateAgency.Tests
 
         }
 
-        [Fact]
-        public void Deposit_ShouldBeInRangeOf10to15Percent()
+        [Theory]
+        [InlineData(12)]
+        [InlineData(14)]
+        [InlineData(33)]
+        public void Deposit_ShouldBeInRangeOf10to15Percent(object value)
         {
-            //arrange
-            int deposit = 12;
-            int price = 100;
-            bool expected;
-
-            if (deposit >= price/10 && deposit <= price*0.15)
-            {
-                expected = true;
-            }
-            else
-            {
-                expected = false;
-            }
 
             //act
-            Flat flat = new Flat() {Deposit = 12, Number = "Квартира №1", Region = "Вінницька", Address = new Address { Street = "Лесі Українки" }, Price = 100, Area = 100, CountOfRoom = 3 };
-            bool actual = flat.CheckDeposit();
+            Flat flat = new Flat() { Number = "Квартира №1", Region = "Вінницька", Address = new Address { Street = "Лесі Українки" }, Price = 100, Area = 100, CountOfRoom = 3 };
+            int actual = flat.CheckDeposit((int)value);
 
             //assert
-            Assert.Equal(expected, actual);
+            Assert.Equal(value, actual);
 
         }
 
