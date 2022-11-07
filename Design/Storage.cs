@@ -27,18 +27,8 @@ namespace Design
             int AmountRooms = 3;
             return this.Area * AmountRooms;
         }
-        public bool FilterNumber()
-        {
-            if (Number == null)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
 
-        }
+
         public string OurRegion()
         {
             return this.Region;
