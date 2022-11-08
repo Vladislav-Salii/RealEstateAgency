@@ -59,6 +59,7 @@ namespace RealEstateAgency.Tests
         [InlineData(12)]
         [InlineData(14)]
         [InlineData(10)]
+        [InlineData(46)]
         public void Deposit_ShouldBeInRangeOf10to15Percent(object value)
         {
 
