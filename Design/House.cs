@@ -35,19 +35,19 @@ namespace Design
         public decimal Purchase_Price(double Area, int NumOfFloors, decimal CorrectedPricePerMeter)
         {
             decimal Price;
-            if(CorrectedPricePerMeter == 0)
+            if (CorrectedPricePerMeter == 0)
             {
                 Price = PricePerSmeter * NumOfFloors * (decimal)Area;
             }
-            else 
-            { 
-                Price = CorrectedPricePerMeter * NumOfFloors * (decimal)Area; 
+            else
+            {
+                Price = CorrectedPricePerMeter * NumOfFloors * (decimal)Area;
             }
-            
+
             return Price;
         }
 
-        public decimal RieltorPart(decimal price, decimal correctingVal)//3-5
+        public decimal RieltorPart(decimal price, decimal correctingVal)
         {
             return price * correctingVal;
         }
@@ -76,7 +76,6 @@ namespace Design
 
             if (houseTo == null || houseFrom == null)
             {
-                MessageBox.Show("Неможлива фільтрація", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 

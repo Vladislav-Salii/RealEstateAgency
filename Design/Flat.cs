@@ -29,9 +29,8 @@ namespace Design
         }
         public double AverageRoomArea()
         {
-            return (double)((Area*0.75) / CountOfRoom);
+            return (double)((Area * 0.75) / CountOfRoom);
         }
-
         public int CheckDeposit(int depos)
         {
             if (depos >= Price / 10 && depos <= Price * 0.15)
@@ -45,16 +44,15 @@ namespace Design
 
 
         }
-
         public string Print()
         {
-            return   $"Номер будинку : {Number} ," +
+            return $"Номер будинку : {Number} ," +
                      $" Область : {Region} ," +
                      $" Вулиця : {Address.Street} ," +
                      $" Ціна : {Price} ," +
                      $" Площа : {Area} ," +
                      $" Кількість поверхів : {CountOfRoom}";
-                
+
         }
         public bool Filter(object objFrom, object objTo)
         {
@@ -63,7 +61,6 @@ namespace Design
 
             if (flatFrom == null || flatTo == null)
             {
-                MessageBox.Show("Неможлива фільтрація", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
