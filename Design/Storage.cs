@@ -48,8 +48,7 @@ namespace Design
             Storage storageTo = objTo as Storage;
 
             if (storageFrom == null || storageTo == null)
-            {
-                MessageBox.Show("Неможлива фільтрація", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            {              
                 return false;
             }
 

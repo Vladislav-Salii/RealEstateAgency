@@ -60,8 +60,7 @@ namespace Design
             Flat flatTo = objTo as Flat;
 
             if (flatFrom == null || flatTo == null)
-            {
-                MessageBox.Show("Неможлива фільтрація", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            {               
                 return false;
             }
 

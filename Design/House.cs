@@ -12,8 +12,7 @@ namespace Design
     [Serializable]
     public class House : Realty, IPrintable, IFilter
     {
-        public int NumberOfFloors { get; set; }
-        ////////////////////////////////////////////////////////
+        public int NumberOfFloors { get; set; }      
         private const decimal PricePerSmeter = 30790.25M;
         const decimal MaxPercent = 0.05M;
         private bool OwnerIsVerified;
@@ -22,8 +21,7 @@ namespace Design
             get { return OwnerIsVerified; }
             set { OwnerIsVerified = value; }
         }
-
-        ////////////////////////////////////////////////////////
+              
         public string Print()
         {
             return "Номер будинку :" + Number +
@@ -33,9 +31,7 @@ namespace Design
                     "\nПлоща :" + Area +
                     "\nКількість поверхів :" + NumberOfFloors;
         }
-
-        ////////////////////////////////////////////////////////
-
+     
         public string ReturnAddress()
         {
             return $"{Region}{Address.Street}";
@@ -47,7 +43,7 @@ namespace Design
             return PricePerSmeter * NumOfFloors * (decimal)Area;
         }
 
-        public decimal RieltorPart(int percent, int correctingVal)//3-5
+        public decimal RieltorPart(int percent, int correctingVal)
         {
 
             return (decimal)percent / (100 * correctingVal);
@@ -75,16 +71,13 @@ namespace Design
             return DocumentsAreVerified;
         }
 
-        ////////////////////////////////////////////////////////
-
         public bool Filter(object objFrom, object objTo)
         {
             House houseTo = objTo as House;
             House houseFrom = objFrom as House;
 
             if (houseTo == null || houseFrom == null)
-            {
-                MessageBox.Show("Неможлива фільтрація", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            {               
                 return false;
             }
 
