@@ -12,7 +12,7 @@ namespace Design
     [Serializable]
     public class House : Realty, IPrintable, IFilter
     {
-        public int NumberOfFloors { get; set; }      
+        public int NumberOfFloors { get; set; }
         private const decimal PricePerSmeter = 30790.25M;
         const decimal MaxPercent = 0.05M;
         private bool OwnerIsVerified;
@@ -21,41 +21,45 @@ namespace Design
             get { return OwnerIsVerified; }
             set { OwnerIsVerified = value; }
         }
-              
+
         public string Print()
         {
-            return "Номер будинку :" + Number +
-                    "\nОбласть :" + Region +
-                    "\nВулиця : " + Address.Street +
-                    "\nЦіна :" + Price +
-                    "\nПлоща :" + Area +
-                    "\nКількість поверхів :" + NumberOfFloors;
+            return $"Область:{Region}Вулиця:{Address.Street}Номер будинку:{Number}Ціна:{Price}Площа:{Area}Кількість поверхів:{NumberOfFloors}";
         }
-     
-        public string ReturnAddress()
+
+        public string Return_Address()
         {
             return $"{Region}{Address.Street}";
         }
 
-        public decimal Purchase_Price(double Area, int NumOfFloors)
+        public decimal Purchase_Price(double Area, int NumOfFloors, decimal CorrectedPricePerMeter)
         {
+            decimal Price;
+            if (CorrectedPricePerMeter == 0)
+            {
+                Price = PricePerSmeter * NumOfFloors * (decimal)Area;
+            }
+            else
+            {
+                Price = CorrectedPricePerMeter * NumOfFloors * (decimal)Area;
+            }
 
-            return PricePerSmeter * NumOfFloors * (decimal)Area;
+            return Price;
         }
-        public decimal RieltorPart(int percent, int correctingVal)
-        {
 
-            return (decimal)percent / (100 * correctingVal);
+        public decimal RieltorPart(decimal price, decimal correctingVal)
+        {
+            return price * correctingVal;
         }
 
-        public decimal RealPrice(double Area, int NumOfFloors, int percent, int correctingVal)
+        public decimal RealPrice(decimal price, decimal correctingVal)
         {
-            return this.RieltorPart(percent, correctingVal) + this.Purchase_Price(Area, NumOfFloors);
+            return this.RieltorPart(price, correctingVal) + price;
         }
 
         public bool Purchasing(bool OwnerDocumentsAreVerified, decimal PurchasePrice, decimal RealPrice)
         {
-            if (OwnerDocumentsAreVerified && RealPrice < PurchasePrice * MaxPercent * PurchasePrice)
+            if (OwnerDocumentsAreVerified && RealPrice <= PurchasePrice * MaxPercent * PurchasePrice)
             {
                 return true;
             }
@@ -65,18 +69,13 @@ namespace Design
             }
         }
 
-        public bool OwnerDocumentsVerified()
-        {
-            return DocumentsAreVerified;
-        }
-
         public bool Filter(object objFrom, object objTo)
         {
             House houseTo = objTo as House;
             House houseFrom = objFrom as House;
 
             if (houseTo == null || houseFrom == null)
-            {               
+            {
                 return false;
             }
 
@@ -158,7 +157,5 @@ namespace Design
             }
             return check;
         }
-
-
     }
 }

@@ -12,43 +12,38 @@ namespace Design
     {
         public string Print()
         {
-            return "Номер складу :" + Number +
-                    "\nОбласть :" + Region +
-                    "\nВулиця : " + Address.Street +
-                    "\nЦіна :" + Price +
-                    "\nПлоща :" + Area;
+            return $"Номер будинку : {Number} ," +
+                     $" Область : {Region} ," +
+                     $" Вулиця : {Address.Street} ," +
+                     $" Ціна : {Price} ," +
+                     $" Площа : {Area}";
+
         }
+
         public int PricePerYear()
         {
             return this.Price * 12;
         }
-        public double SummArea(int AmountRooms)
+
+        public double SummArea()
         {
+            int AmountRooms = 3;
             return this.Area * AmountRooms;
         }
-        public bool FilterNumber()
-        {
-            if (Number == null)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
 
-        }
+
         public string OurRegion()
         {
             return this.Region;
         }
+
         public bool Filter(object objFrom, object objTo)
         {
             Storage storageFrom = objFrom as Storage;
             Storage storageTo = objTo as Storage;
 
             if (storageFrom == null || storageTo == null)
-            {              
+            {
                 return false;
             }
 

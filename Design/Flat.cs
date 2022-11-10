@@ -60,7 +60,7 @@ namespace Design
             Flat flatTo = objTo as Flat;
 
             if (flatFrom == null || flatTo == null)
-            {               
+            {
                 return false;
             }
 
