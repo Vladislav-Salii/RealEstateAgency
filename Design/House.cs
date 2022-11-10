@@ -42,7 +42,6 @@ namespace Design
 
             return PricePerSmeter * NumOfFloors * (decimal)Area;
         }
-
         public decimal RieltorPart(int percent, int correctingVal)
         {
 
