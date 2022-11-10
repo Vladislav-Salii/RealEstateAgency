@@ -61,7 +61,6 @@ namespace Design
 
             if (flatFrom == null || flatTo == null)
             {
-                MessageBox.Show("Неможлива фільтрація", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 

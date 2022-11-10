@@ -12,16 +12,19 @@ namespace Design
     {
         public string Print()
         {
-            return "Номер складу :" + Number +
-                    "\nОбласть :" + Region +
-                    "\nВулиця : " + Address.Street +
-                    "\nЦіна :" + Price +
-                    "\nПлоща :" + Area;
+            return $"Номер будинку : {Number} ," +
+                     $" Область : {Region} ," +
+                     $" Вулиця : {Address.Street} ," +
+                     $" Ціна : {Price} ," +
+                     $" Площа : {Area}";
+
         }
+
         public int PricePerYear()
         {
             return this.Price * 12;
         }
+
         public double SummArea()
         {
             int AmountRooms = 3;
@@ -41,7 +44,6 @@ namespace Design
 
             if (storageFrom == null || storageTo == null)
             {
-                MessageBox.Show("Неможлива фільтрація", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
