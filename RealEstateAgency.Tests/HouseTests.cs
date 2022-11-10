@@ -85,7 +85,7 @@ namespace RealEstateAgency.Tests
         }
 
         [Fact]
-        public void Purchasing_Condition()
+        public void Purchasing_Condition_true()
         {
             //Arrange
             var purchasing_house = new House() { Number = "Будинок №2", Region = "Київська ", Address = new Address { Street = "Бальзака" }, Price = 1000, Area = 30, NumberOfFloors = 1 };
@@ -96,6 +96,34 @@ namespace RealEstateAgency.Tests
             bool actual = purchasing_house.Purchasing(purchasing_house.DocumentsAreVerified, price, RealPrice);
             //Assert
             Assert.True(actual);
+        }
+
+        [Fact]
+        public void Purchasing_Condition_false_lessPrice()
+        {
+            //Arrange
+            var purchasing_house = new House() { Number = "Будинок №2", Region = "Київська ", Address = new Address { Street = "Бальзака" }, Price = 1000, Area = 30, NumberOfFloors = 1 };
+            decimal price = 93.1M;
+            purchasing_house.DocumentsAreVerified = true;
+            decimal RealPrice = 902723.1M + 902723.1M * 0.05M;
+            //Act
+            bool actual = purchasing_house.Purchasing(purchasing_house.DocumentsAreVerified, price, RealPrice);
+            //Assert
+            Assert.False(actual);
+        }
+
+        [Fact]
+        public void Purchasing_Condition_false_no_docs()
+        {
+            //Arrange
+            var purchasing_house = new House() { Number = "Будинок №2", Region = "Київська ", Address = new Address { Street = "Бальзака" }, Price = 1000, Area = 30, NumberOfFloors = 1 };
+            decimal price = 902723.1M;
+            purchasing_house.DocumentsAreVerified = false;
+            decimal RealPrice = 902723.1M + 902723.1M * 0.05M;
+            //Act
+            bool actual = purchasing_house.Purchasing(purchasing_house.DocumentsAreVerified, price, RealPrice);
+            //Assert
+            Assert.False(actual);
         }
     }
 }
