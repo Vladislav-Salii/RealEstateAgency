@@ -125,5 +125,86 @@ namespace RealEstateAgency.Tests
             //Assert
             Assert.False(actual);
         }
+
+        [Fact]
+        public void FilterTest_for_Another_Type()
+        {
+            //Arrange
+            int temp = 0;
+            var house2 = new House() { Number = "Будинок №2", Region = "Чернігівська ", Address = new Address { Street = "Шевченка" }, Price = 1000, Area = 30, NumberOfFloors = 1 };
+            bool expected = false;
+            //Act
+            bool actual = house2.Filter(temp, house2);
+            //Asseet
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void FilterTest_for_null()
+        {
+            //Arrange
+            var house2 = new House() { Number = "Будинок №2", Region = "Чернігівська ", Address = new Address { Street = "Шевченка" }, Price = 1000, Area = 30, NumberOfFloors = 1 };
+            bool expected = false;
+            //Act
+            bool actual = house2.Filter(null, house2);
+            //Asseet
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void FilterTest_for_Area()
+        {
+            //Arrange
+            var house1 = new House() { Number = "", Region = "", Address = new Address { Street = "" }, Price = 1000, Area = 30, NumberOfFloors = 1 };
+            var house2 = new House() { Number = "", Region = "", Address = new Address { Street = "" }, Price = 1000, Area = 20, NumberOfFloors = 1 };
+            var house3 = new House() { Number = "", Region = "", Address = new Address { Street = "" }, Price = 1000, Area = 10, NumberOfFloors = 1 };
+            bool expected = false;
+            //Act
+            bool actual = house2.Filter(house1, house3);
+            //Asseet
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void FilterTest_for_Price()
+        {
+            //Arrange
+            var house1 = new House() { Number = "", Region = "", Address = new Address { Street = "" }, Price = 1001, Area = 20, NumberOfFloors = 1 };
+            var house2 = new House() { Number = "", Region = "", Address = new Address { Street = "" }, Price = 1000, Area = 20, NumberOfFloors = 1 };
+            var house3 = new House() { Number = "", Region = "", Address = new Address { Street = "" }, Price =  999, Area = 20, NumberOfFloors = 1 };
+            bool expected = false;
+            //Act
+            bool actual = house2.Filter(house1, house3);
+            //Asseet
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void FilterTest_for_Number_of_Floors()
+        {
+            //Arrange
+            var house1 = new House() { Number = "", Region = "Киівська", Address = new Address { Street = "" }, Price = 1000, Area = 20, NumberOfFloors = 3 };
+            var house2 = new House() { Number = "", Region = "Киівська", Address = new Address { Street = "" }, Price = 1000, Area = 20, NumberOfFloors = 2 };
+            var house3 = new House() { Number = "", Region = "Киівська", Address = new Address { Street = "" }, Price = 1000, Area = 20, NumberOfFloors = 1 };
+            bool expected = false;
+            //Act
+            bool actual = house2.Filter(house1, house3);
+            //Asseet
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void FilterTest_for_Region()
+        {
+            //Arrange
+            var house1 = new House() { Number = "", Region = "Киівська", Address = new Address { Street = "" }, Price = 1000, Area = 20, NumberOfFloors = 1 };
+            var house2 = new House() { Number = "", Region = "Вінницька", Address = new Address { Street = "" }, Price = 1000, Area = 20, NumberOfFloors = 1 };
+            var house3 = new House() { Number = "", Region = "Чернівецька", Address = new Address { Street = "" }, Price = 1000, Area = 20, NumberOfFloors = 1 };
+            bool expected = false;
+            //Act
+            bool actual = house2.Filter(house1, house3);
+            //Asseet
+            Assert.Equal(expected, actual);
+        }
     }
 }
