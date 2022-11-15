@@ -209,10 +209,10 @@ namespace RealEstateAgency.Tests
         }
 
         [Theory]
-        [InlineData(null, "", null, 0, 0, 0, 0, 0, true)]
-        [InlineData(null, "Всі", null, 0, 0, 0, 0, 0, true)]
-        [InlineData(null, "Київська", "Київська", 0, 0, 0, 0, 0, true)]
-        [InlineData(null, "Київська", "Львівська",0, 0, 0, 0, 0, false)]
+        [InlineData(null, "", null, null, null, 0, 0, 0, true)]
+        [InlineData(null, "Всі", null, null, null, 0, 0, 0, true)]
+        [InlineData(null, "Київська", "Київська", null, null, 0, 0, 0, true)]
+        [InlineData(null, "Київська", "Львівська", null, null, 0, 0, 0, false)]
         public void FilterTest_for_Region(string Number, string Region1, string Region2, string Region3, string Address, int Price, double Area, int Floors, bool Passing)//
         {
             //Arrange
