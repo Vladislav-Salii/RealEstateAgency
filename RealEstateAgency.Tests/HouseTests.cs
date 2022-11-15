@@ -151,56 +151,75 @@ namespace RealEstateAgency.Tests
             Assert.Equal(expected, actual);
         }
 
-        [Fact]
-        public void FilterTest_for_Area()
+        [Theory]
+        [InlineData(null, null, null, 0, 0, 0, 0, 1, true)]
+        [InlineData(null, null, null, 0, 0, 10, 20, 1, true)]
+        [InlineData(null, null, null, 0, 10, 20, 0, 1, true)]
+        [InlineData(null, null, null, 0, 10, 20, 30, 1, true)]
+        [InlineData(null, null, null, 0, 30, 20, 10, 1, false)]
+        public void FilterTest_for_Area(string Number, string Region, string Address, int Price, double Area1, double Area2, double Area3, int Floors, bool Passing)//
         {
             //Arrange
-            var house1 = new House() { Number = "", Region = "", Address = new Address { Street = "" }, Price = 1000, Area = 30, NumberOfFloors = 1 };
-            var house2 = new House() { Number = "", Region = "", Address = new Address { Street = "" }, Price = 1000, Area = 20, NumberOfFloors = 1 };
-            var house3 = new House() { Number = "", Region = "", Address = new Address { Street = "" }, Price = 1000, Area = 10, NumberOfFloors = 1 };
-            bool expected = false;
+            var house1 = new House() { Number = Number, Region = Region, Address = new Address { Street = Address }, Price = Price, Area = Area1, NumberOfFloors = Floors };
+            var house2 = new House() { Number = Number, Region = Region, Address = new Address { Street = Address }, Price = Price, Area = Area2, NumberOfFloors = Floors };
+            var house3 = new House() { Number = Number, Region = Region, Address = new Address { Street = Address }, Price = Price, Area = Area3, NumberOfFloors = Floors };
+            bool expected = Passing;
             //Act
             bool actual = house2.Filter(house1, house3);
             //Asseet
             Assert.Equal(expected, actual);
         }
 
-        [Fact]
-        public void FilterTest_for_Price()
+        [Theory]
+        [InlineData(null, null, null, 0, 0, 0, 0, 1, true)]
+        [InlineData(null, null, null, 0, 10, 20, 0, 1, true)]
+        [InlineData(null, null, null, 10, 20, 0, 0, 1, true)]
+        [InlineData(null, null, null, 10, 20, 30, 0, 1, true)]
+        [InlineData(null, null, null, 30, 20, 10, 0, 1, false)]
+        public void FilterTest_for_Price(string Number, string Region, string Address, int Price1, int Price2, int Price3, double Area, int Floors, bool Passing)//
         {
             //Arrange
-            var house1 = new House() { Number = "", Region = "", Address = new Address { Street = "" }, Price = 1001, Area = 20, NumberOfFloors = 1 };
-            var house2 = new House() { Number = "", Region = "", Address = new Address { Street = "" }, Price = 1000, Area = 20, NumberOfFloors = 1 };
-            var house3 = new House() { Number = "", Region = "", Address = new Address { Street = "" }, Price =  999, Area = 20, NumberOfFloors = 1 };
-            bool expected = false;
+            var house1 = new House() { Number = Number, Region = Region, Address = new Address { Street = Address }, Price = Price1, Area = Area, NumberOfFloors = Floors };
+            var house2 = new House() { Number = Number, Region = Region, Address = new Address { Street = Address }, Price = Price2, Area = Area, NumberOfFloors = Floors };
+            var house3 = new House() { Number = Number, Region = Region, Address = new Address { Street = Address }, Price = Price3, Area = Area, NumberOfFloors = Floors };
+            bool expected = Passing;
             //Act
             bool actual = house2.Filter(house1, house3);
             //Asseet
             Assert.Equal(expected, actual);
         }
 
-        [Fact]
-        public void FilterTest_for_Number_of_Floors()
+        [Theory]
+        [InlineData(null, null, null, 0, 0, 0, 0, 0, true)]
+        [InlineData(null, null, null, 0, 0, 0, 10, 20, true)]
+        [InlineData(null, null, null, 0, 0, 10, 20, 0, true)]
+        [InlineData(null, null, null, 0, 0, 10, 20, 30, true)]
+        [InlineData(null, null, null, 0, 0, 30, 20, 10, false)]
+        public void FilterTest_for_Number_of_Floors(string Number, string Region, string Address, int Price, double Area, int Floors1, int Floors2, int Floors3, bool Passing)//
         {
             //Arrange
-            var house1 = new House() { Number = "", Region = "Киівська", Address = new Address { Street = "" }, Price = 1000, Area = 20, NumberOfFloors = 3 };
-            var house2 = new House() { Number = "", Region = "Киівська", Address = new Address { Street = "" }, Price = 1000, Area = 20, NumberOfFloors = 2 };
-            var house3 = new House() { Number = "", Region = "Киівська", Address = new Address { Street = "" }, Price = 1000, Area = 20, NumberOfFloors = 1 };
-            bool expected = false;
+            var house1 = new House() { Number = Number, Region = Region, Address = new Address { Street = Address }, Price = Price, Area = Area, NumberOfFloors = Floors1 };
+            var house2 = new House() { Number = Number, Region = Region, Address = new Address { Street = Address }, Price = Price, Area = Area, NumberOfFloors = Floors2 };
+            var house3 = new House() { Number = Number, Region = Region, Address = new Address { Street = Address }, Price = Price, Area = Area, NumberOfFloors = Floors3 };
+            bool expected = Passing;
             //Act
             bool actual = house2.Filter(house1, house3);
             //Asseet
             Assert.Equal(expected, actual);
         }
 
-        [Fact]
-        public void FilterTest_for_Region()
+        [Theory]
+        [InlineData(null, "", null, 0, 0, 0, 0, 0, true)]
+        [InlineData(null, "Всі", null, 0, 0, 0, 0, 0, true)]
+        [InlineData(null, "Київська", "Київська", 0, 0, 0, 0, 0, true)]
+        [InlineData(null, "Київська", "Львівська",0, 0, 0, 0, 0, false)]
+        public void FilterTest_for_Region(string Number, string Region1, string Region2, string Region3, string Address, int Price, double Area, int Floors, bool Passing)//
         {
             //Arrange
-            var house1 = new House() { Number = "", Region = "Киівська", Address = new Address { Street = "" }, Price = 1000, Area = 20, NumberOfFloors = 1 };
-            var house2 = new House() { Number = "", Region = "Вінницька", Address = new Address { Street = "" }, Price = 1000, Area = 20, NumberOfFloors = 1 };
-            var house3 = new House() { Number = "", Region = "Чернівецька", Address = new Address { Street = "" }, Price = 1000, Area = 20, NumberOfFloors = 1 };
-            bool expected = false;
+            var house1 = new House() { Number = Number, Region = Region1, Address = new Address { Street = Address }, Price = Price, Area = Area, NumberOfFloors = Floors };
+            var house2 = new House() { Number = Number, Region = Region2, Address = new Address { Street = Address }, Price = Price, Area = Area, NumberOfFloors = Floors };
+            var house3 = new House() { Number = Number, Region = Region3, Address = new Address { Street = Address }, Price = Price, Area = Area, NumberOfFloors = Floors };
+            bool expected = Passing;
             //Act
             bool actual = house2.Filter(house1, house3);
             //Asseet
