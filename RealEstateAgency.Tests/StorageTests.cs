@@ -86,6 +86,25 @@ namespace RealEstateAgency.Tests
             Assert.Equal(expected, actual);
         }
 
+        [Theory]
+        [InlineData(null, null, null, 0, 0, 0, 0, true)]
+        [InlineData(null, null, null, 0, 10, 20, 0, true)]
+        [InlineData(null, null, null, 10, 20, 0, 0, true)]
+        [InlineData(null, null, null, 10, 20, 30, 0, true)]
+        [InlineData(null, null, null, 30, 20, 10, 0, false)]
+        public void FilterTest_for_Price(string Number, string Region, string Address, int Price1, int Price2, int Price3, double Area, bool Passing)
+        {
+            //Arrange
+            var storage1 = new Storage() { Number = Number, Region = Region, Address = new Address { Street = Address }, Price = Price1, Area = Area };
+            var storage2 = new Storage() { Number = Number, Region = Region, Address = new Address { Street = Address }, Price = Price2, Area = Area };
+            var storage3 = new Storage() { Number = Number, Region = Region, Address = new Address { Street = Address }, Price = Price3, Area = Area };
+            bool expected = Passing;
+            //Act
+            bool actual = storage2.Filter(storage1, storage3);
+            //Asseet
+            Assert.Equal(expected, actual);
+        }
+
         [Fact]
         public void FilterAreaAt90To130_BoolCheckReturnTrue()
         {
@@ -97,6 +116,25 @@ namespace RealEstateAgency.Tests
 
             bool expected = true;
 
+            Assert.Equal(expected, actual);
+        }
+
+        [Theory]
+        [InlineData(null, null, null, 0, 0, 0, 0,  true)]
+        [InlineData(null, null, null, 0, 0, 10, 20, true)]
+        [InlineData(null, null, null, 0, 10, 20, 0, true)]
+        [InlineData(null, null, null, 0, 10, 20, 30, true)]
+        [InlineData(null, null, null, 0, 30, 20, 10, false)]
+        public void FilterTest_for_Area(string Number, string Region, string Address, int Price, double Area1, double Area2, double Area3, bool Passing)
+        {
+            
+            var storage1 = new Storage() { Number = Number, Region = Region, Address = new Address { Street = Address }, Price = Price, Area = Area1 };
+            var storage2 = new Storage() { Number = Number, Region = Region, Address = new Address { Street = Address }, Price = Price, Area = Area2 };
+            var storage3 = new Storage() { Number = Number, Region = Region, Address = new Address { Street = Address }, Price = Price, Area = Area3 };
+            bool expected = Passing;
+           
+            bool actual = storage2.Filter(storage1, storage3);
+            
             Assert.Equal(expected, actual);
         }
 
@@ -124,5 +162,39 @@ namespace RealEstateAgency.Tests
 
             Assert.Equal(expected, actual);
         }
+
+
+        [Theory]
+        [InlineData(null, "", null, null, null, 0, 0, true)]
+        [InlineData(null, "Всі", null, null, null, 0, 0, true)]
+        [InlineData(null, "Київська", "Київська", null, null, 0, 0, true)]
+        [InlineData(null, "Київська", "Львівська", null, null, 0, 0, false)]
+
+        public void FilterTest_for_Region(string Number, string Region1, string Region2, string Region3, string Address, int Price, double Area, bool Passing)
+        {
+            
+            var storage1 = new Storage() { Number = Number, Region = Region1, Address = new Address { Street = Address }, Price = Price, Area = Area };
+            var storage2 = new Storage() { Number = Number, Region = Region2, Address = new Address { Street = Address }, Price = Price, Area = Area };
+            var storage3 = new Storage() { Number = Number, Region = Region3, Address = new Address { Street = Address }, Price = Price, Area = Area };
+            bool expected = Passing;
+            
+            bool actual = storage2.Filter(storage1, storage3);
+            
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void FilterTest_for_Another_Type()
+        {
+            
+            int temp = 0;
+            var storage = new Storage() { Number = "2", Region = "Львівська ", Address = new Address { Street = "Соборна" }, Price = 100, Area = 50 };
+            bool expected = false;
+           
+            bool actual = storage.Filter(temp, storage);
+            
+            Assert.Equal(expected, actual);
+        }
+
     }
 }
